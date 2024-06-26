@@ -1,0 +1,40 @@
+const apiKey = "52499d44a9608a2481ab031f0cf09670";
+        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+        async function callApiFun(city) {
+            const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+            var data = await response.json();
+            document.querySelector(".cityDel h1").innerHTML=data.name;
+            document.querySelector(".cityDel h2").innerHTML=data.main.temp+" °c";
+            document.querySelector(".humidityDetails h3").innerHTML=data.main.humidity+" %";
+            document.querySelector(".windDetails h4").innerHTML=data.wind.speed+" km/hr";
+
+            console.log(data);
+
+            if(data.weather[0].main==="mist"){
+                images.src="/js-projects/weather-images/mist.png";
+            }
+            else if(data.weather[0].main=="Clouds"){
+                images.src="/js-projects/weather-images/cloudy.png";
+            }else if(data.weather[0].main=="Clear"){
+                images.src="/js-projects/weather-images/clear-sky.png";
+            }else if(data.weather[0].main=="Rain"){
+                images.src="/js-projects/weather-images/raining.png";
+            }else if(data.weather[0].main=="Thunderstorm"){
+                images.src="/js-projects/weather-images/thunder.png";
+            }else if(data.weather[0].main=="Snow"){
+                images.src="/js-projects/weather-images/snow.png";
+            }else if(data.weather[0].main=="Haze"){
+                images.src="/js-projects/weather-images/haze.png";
+            }
+
+        }
+        const searchBar=document.querySelector(".searchContent input");
+        const searchBtn=document.querySelector(".searchContent button");
+        const images=document.querySelector(".weatherImg img");
+        
+        searchBtn.addEventListener("click",()=>{
+            callApiFun(searchBar.value);
+        })
+        
+
+    
